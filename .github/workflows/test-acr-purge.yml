@@ -1,8 +1,5 @@
 name: TEST ACR PURGE
-on:
-  workflow_dispatch:
-  schedule:
-    - cron: '0 06,18 * * *'
+on: push
 
 jobs:
   acr-purge:
