@@ -18,7 +18,7 @@ jobs:
       acr-purge-cmd: "acr purge "
     steps:
       - name: Test purge
-        uses: artemNaumenko/acr-build-helloworld-node/acr-purge.yml@master
+        uses: artemNaumenko/acr-build-helloworld-node/.github/workflows/acr-purge.yml@master
         with:
           registry: 'testArtem1'
           repository-regex: 'samples/nginx'
