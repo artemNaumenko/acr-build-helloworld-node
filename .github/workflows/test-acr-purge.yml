@@ -6,7 +6,7 @@ on:
 
 jobs:
   acr-purge:
-    uses: artemNaumenko/acr-build-helloworld-node/.github/workflows/acr-purge.yml@master
+    uses: ./.github/workflows/acr-purge.yml@master
     with:
       registry: 'testArtem1'
       repository-regex: 'samples/nginx'
