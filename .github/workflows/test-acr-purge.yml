@@ -1,5 +1,8 @@
+---
 name: TEST ACR PURGE
-on: push
+
+on:
+  push
 
 jobs:
   acr-purge:
