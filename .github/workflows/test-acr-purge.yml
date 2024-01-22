@@ -6,7 +6,7 @@ on:
 
 jobs:
   acr-purge:
-    uses: ./.github/workflows/acr-purge.yml@master
+    uses: ./.github/workflows/acr-purge.yml
     with:
       registry: 'testArtem1'
       repository-regex: 'samples/nginx'
