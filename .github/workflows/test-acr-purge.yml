@@ -15,12 +15,8 @@ jobs:
       service-principal-tenant: "823215e9-78b0-4c49-bee0-c95059cec31c"
       password: "nwoQLGxhx7mggXPXzY+bYRRXomfV3veqIP0O3WfKNb+ACRCH+X/H"
     steps:
-      - name: Prepare
-        run: |
-          wget http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.0g-2ubuntu4_amd64.deb
-          sudo dpkg -i libssl1.1_1.1.0g-2ubuntu4_amd64.deb
       - name: Purge Feature Containers
-        uses: Plabick/ACR-Container-Purge-Action@master
+        uses: Plabick/ACR-Container-Purge-Action@1.1
         with:
           registry: ${{ env.registry }}
           username: ${{ env.service-principal-username }}
