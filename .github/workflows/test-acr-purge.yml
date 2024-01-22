@@ -6,21 +6,18 @@ on:
 
 jobs:
   acr-purge:
-    runs-on: ubuntu-latest
-    env:
+    uses: artemNaumenko/acr-build-helloworld-node/.github/workflows/acr-purge.yml@master
+    with:
       registry: 'testArtem1'
-      regex-feature: "version*"
-      days-to-keep-feature: "0"
-      keep-feature: "2"
-      service-principal-username: "testArtem1"
-      service-principal-tenant: "823215e9-78b0-4c49-bee0-c95059cec31c"
-      password: "nwoQLGxhx7mggXPXzY+bYRRXomfV3veqIP0O3WfKNb+ACRCH+X/H"
-      acr-purge-cmd: "acr purge "
-    steps:
-      - name: Test purge
-        uses: artemNaumenko/acr-build-helloworld-node/.github/workflows/acr-purge.yml@master
-        with:
-          registry: 'testArtem1'
-          repository-regex: 'samples/nginx'
-          tag-regex: 'version.*'
-          images-to-keep-count: '2'
+      repository-regex: 'samples/nginx'
+      tag-regex: 'version.*'
+      images-to-keep-count: '2'
+#    env:
+#      registry: 'testArtem1'
+#      regex-feature: "version*"
+#      days-to-keep-feature: "0"
+#      keep-feature: "2"
+#      service-principal-username: "testArtem1"
+#      service-principal-tenant: "823215e9-78b0-4c49-bee0-c95059cec31c"
+#      password: "nwoQLGxhx7mggXPXzY+bYRRXomfV3veqIP0O3WfKNb+ACRCH+X/H"
+#      acr-purge-cmd: "acr purge "
