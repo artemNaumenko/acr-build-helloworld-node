@@ -4,17 +4,12 @@ name: ACR Purge Reusable
 on:
   workflow_call:
     inputs:
-      registry:
-        required: string
+      config-name:
+        required: false
         type: string
-      repository-regex:
-        required: string
-        type: string
-      tag-regex:
-        required: string
-        type: string
-      images-to-keep-count:
-        required: string
+        default: 'default_config.yml'
+      folder-paths:
+        required: true
         type: string
 
 jobs:
