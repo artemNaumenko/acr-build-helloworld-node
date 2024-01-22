@@ -8,7 +8,7 @@ jobs:
   acr-purge:
     uses: ./.github/workflows/acr-purge.yml
     with:
-      registry: 'testArtem1'
-      repository-regex: 'samples/nginx'
-      tag-regex: 'version.*'
-      images-to-keep-count: '2'
+      registry: "testArtem1"
+      repository-regex: "samples/nginx"
+      tag-regex: "version.*"
+      images-to-keep-count: "2"
