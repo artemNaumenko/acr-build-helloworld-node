@@ -1,5 +1,9 @@
 name: ACR Purge
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 06,18 * * *'
+
 jobs:
   acr-purge:
     runs-on: ubuntu-latest
