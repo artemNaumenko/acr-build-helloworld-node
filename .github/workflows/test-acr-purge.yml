@@ -1,11 +1,8 @@
 name: ACR Purge
-on:
-  workflow_dispatch:
-  schedule:
-    - cron: '0 06,18 * * *'
+on: workflow_dispatch
 jobs:
   acr-purge:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     env:
       registry: 'testArtem1'
       regex-feature: "version*"
@@ -14,15 +11,12 @@ jobs:
       service-principal-username: "testArtem1"
       service-principal-tenant: "823215e9-78b0-4c49-bee0-c95059cec31c"
       password: "nwoQLGxhx7mggXPXzY+bYRRXomfV3veqIP0O3WfKNb+ACRCH+X/H"
+      acr-purge-cmd: "acr purge "
     steps:
-      - name: Purge Feature Containers
-        uses: Plabick/ACR-Container-Purge-Action@1.1
+      - name: Test purge
+        uses: acr-purge.yml
         with:
-          registry: ${{ env.registry }}
-          username: ${{ env.service-principal-username }}
-          tenant: ${{ env.service-principal-tenant }}
-          password: ${{ env.password }}
-          tag-regex: ${{ env.regex-feature }}
-          days-to-keep: ${{ env.days-to-keep-feature }}
-          keep: ${{ env.keep-feature }}
-          delete-untagged: True
+          registry: 'testArtem1'
+          repository-regex: 'samples/nginx'
+          tag-regex: 'version.*'
+          images-to-keep-count: '2'

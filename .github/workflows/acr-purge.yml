@@ -1,0 +1,26 @@
+name: ACR Purge
+
+on:
+  workflow_call:
+    inputs:
+      registry:
+        type: string
+        required: string
+      repository-regex:
+        type: string
+        required: true
+      tag-regex:
+        type: string
+        required: true
+      images-to-keep-count:
+        type: string
+        required: true
+
+jobs:
+  acr-purge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Purge containers
+        run: |
+          PURGE_CMD="acr purge --filter '${{ inputs.repository-regex }}:${{ inputs.tag-regex }}' --untagged --keep ${{ inputs.images-to-keep-count  }} --dry-run"
+          az acr run --cmd "$PURGE_CMD" --registry ${{ inputs.registry }}
