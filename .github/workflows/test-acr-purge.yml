@@ -21,4 +21,5 @@ jobs:
           registry: "testArtem1"
           repository-regex: "samples/nginx"
           tag-regex: "version.*"
-          images-to-keep-count: "2"
+          images_to-keep-count: "2"
+
