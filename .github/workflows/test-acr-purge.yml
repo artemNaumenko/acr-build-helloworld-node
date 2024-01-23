@@ -20,7 +20,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Purge containers
-        uses: ./.github/actions/acr-purge
+        uses: artemNaumenko/acr-build-helloworld-node/.github/actions/acr-purge@master
         with:
           azure-client-id: ${{ env.azure-client-id }}
           azure-tenant-id: ${{ env.azure-tenant-id }}
