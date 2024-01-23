@@ -41,7 +41,7 @@ jobs:
           repository-regex: "samples/nginx"
           tag-regex: "version.*"
           duration-to-keep: "5h"
-          images-to-keep-count: "2"
+          images-to-keep-count: "0"
           delete-untagged: true
-          dry-run: false
+          dry-run: true
 
