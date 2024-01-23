@@ -11,8 +11,10 @@ permissions:
 jobs:
   acr-purge-test:
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write
+    env:
+      azure-client-id: "a1f14a14-7101-4aad-b7f2-9fd042ffcac3"
+      azure-tenant-id: "823215e9-78b0-4c49-bee0-c95059cec31c"
+      azure-subscription-id: "39fb1aa5-7523-407e-bd5c-beeba374ffcf"
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -27,9 +29,9 @@ jobs:
       - name: Azure login
         uses: azure/login@v1
         with:
-          client-id: "a1f14a14-7101-4aad-b7f2-9fd042ffcac3"
-          tenant-id: "823215e9-78b0-4c49-bee0-c95059cec31c"
-          subscription-id: "39fb1aa5-7523-407e-bd5c-beeba374ffcf"
+          client-id: ${{ env.azure-client-id }}
+          tenant-id: ${{ env.azure-tenant-id }}
+          subscription-id: ${{ env.azure-subscription-id }}
 
       - name: Check Login
         run: az group list
