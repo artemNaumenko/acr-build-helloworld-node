@@ -19,28 +19,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-#      - name: Log into azure container registry
-#        uses: docker/login-action@v3
-#        with:
-#          registry: "testArtem1.azurecr.io"
-#          username: "testArtem1"
-#          password: "nwoQLGxhx7mggXPXzY+bYRRXomfV3veqIP0O3WfKNb+ACRCH+X/H"
-
-      - name: Azure login
-        uses: azure/login@v1
-        with:
-          client-id: ${{ env.azure-client-id }}
-          tenant-id: ${{ env.azure-tenant-id }}
-          subscription-id: ${{ env.azure-subscription-id }}
-
       - name: Purge containers
         uses: ./.github/actions/acr-purge
         with:
+          azure-client-id: ${{ env.azure-client-id }}
+          azure-tenant-id: ${{ env.azure-tenant-id }}
+          azure-subscription-id: ${{ env.azure-subscription-id }}
           registry: "testArtem1"
           repository-regex: "samples/nginx"
           tag-regex: "version.*"
-          duration-to-keep: "5h"
-          images-to-keep-count: "0"
+          duration-to-keep: "1d"
+          images-to-keep-count: "2"
           delete-untagged: true
           dry-run: false
 
