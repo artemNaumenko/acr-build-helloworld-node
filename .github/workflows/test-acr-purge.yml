@@ -15,11 +15,11 @@ jobs:
         run: | 
           echo "Hello world!"
 
-      - name: Purge containers
-        uses: .github/actions/acr-purge
-        with:
-          registry: "testArtem1"
-          repository-regex: "samples/nginx"
-          tag-regex: "version.*"
-          images_to-keep-count: "2"
+#      - name: Purge containers
+#        uses: .github/actions/acr-purge
+#        with:
+#          registry: "testArtem1"
+#          repository-regex: "samples/nginx"
+#          tag-regex: "version.*"
+#          images_to-keep-count: "2"
 
