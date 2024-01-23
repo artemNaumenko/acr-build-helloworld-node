@@ -4,32 +4,32 @@ description: Composite action to clean ACR
 
 inputs:
   registry:
-    description: "The name of the Azure Container Registry to purge. Case insensitive."
+    description: 'The name of the ACR to purge. Case insensitive.'
     required: true
     type: string
   repository-regex:
-    description: "The ACR repository to purge containers from."
+    description: 'The ACR repository to purge containers from.'
     required: true
     type: string
   tag-regex:
-    description: "Only purge containers with tags matching this regex."
+    description: 'Only purge containers with tags matching this regex.'
     required: true
     type: string
   duration-to-keep:
-    description: "A Go-style duration string (ex. --ago 2d3h6m) to indicate a duration beyond which images are deleted."
+    description: 'A Go-style duration string (ex. --ago 2d3h6m) to indicate a duration beyond which images are deleted.'
     required: true
     type: string
   images-to-keep-count:
-    description: "Specifies that the latest x number of to-be-deleted tags are retained."
+    description: 'Specifies that the latest x number of to-be-deleted tags are retained.'
     required: true
     type: string
   delete-untagged:
-    description: "Specifies that manifests that don't have associated tags (untagged manifests) are deleted."
+    description: 'Specifies that manifests that do not have associated tags (untagged manifests) are deleted.'
     required: false
     type: boolean
     default: false
   dry-run:
-    description: "Run a dry-run of the purge. Output is the same as during a real purge but nothing is deleted. Useful for testing a purge command."
+    description: 'Run a dry-run of the purge. Output is the same as during a real purge but nothing is deleted. Useful for testing a purge command.'
     required: false
     type: boolean
     default: true
@@ -42,14 +42,10 @@ runs:
       run: |
         PURGE_CMD="acr purge --filter '${{ inputs.repository-regex }}:${{ inputs.tag-regex }}' \
                   --keep ${{ inputs.images-to-keep-count  }} --ago ${{ inputs.duration-to-keep }}"
-        
         if [ ${{ inputs.delete-untagged }} = true ]; then
           PURGE_CMD="$PURGE_CMD --untagged"
         fi
-        
         if [ ${{ inputs.dry-run }} = true ]; then
           PURGE_CMD="$PURGE_CMD --dry-run"
         fi
-        
-        echo $PURGE_CMD
         az acr run --cmd "$PURGE_CMD" --registry ${{ inputs.registry }} /dev/null
