@@ -18,7 +18,14 @@ inputs:
   images-to-keep-count:
     required: true
     type: string
-
+  delete-untagged:
+    required: false
+    type: boolean
+    default: false
+  dry-run:
+    required: false
+    type: boolean
+    default: true
 
 runs:
   using: composite
@@ -26,8 +33,16 @@ runs:
     - id: run-purge-cmd
       shell: bash
       run: |
-        PURGE_CMD="acr purge --filter '${{ inputs.repository-regex }}:${{ inputs.tag-regex }}' --untagged \
-                  --keep ${{ inputs.images-to-keep-count  }} --ago ${{ inputs.duration-to-keep }} --dry-run"
+        PURGE_CMD="acr purge --filter '${{ inputs.repository-regex }}:${{ inputs.tag-regex }}' \
+                  --keep ${{ inputs.images-to-keep-count  }} --ago ${{ inputs.duration-to-keep }}"
+        
+        if [ ${{ inputs.delete-untagged }} = true ]; then
+          PURGE_CMD="$PURGE_CMD --untagged"
+        fi
+        
+        if [ ${{ inputs.dry-run }} = true ]; then
+          PURGE_CMD="$PURGE_CMD --dry-run"
+        fi
         
         echo $PURGE_CMD
         az acr run --cmd "$PURGE_CMD" --registry ${{ inputs.registry }} /dev/null
