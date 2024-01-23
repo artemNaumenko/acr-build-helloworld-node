@@ -26,6 +26,7 @@ jobs:
           client-id: "afae16ea-ac0e-40d4-9ffe-c2032055d323"
           tenant-id: "823215e9-78b0-4c49-bee0-c95059cec31c"
           subscription-id: "39fb1aa5-7523-407e-bd5c-beeba374ffcf"
+          enable-AzPSSession: true
 
       - name: Purge containers
         uses: ./.github/actions/acr-purge
