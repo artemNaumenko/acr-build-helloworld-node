@@ -49,12 +49,12 @@ inputs:
 runs:
   using: composite
   steps:
-#    - id: azure-login
-#      uses: azure/login@v1
-#      with:
-#        client-id: ${{ inputs.azure-client-id }}
-#        tenant-id: ${{ inputs.azure-tenant-id }}
-#        subscription-id: ${{ inputs.azure-subscription-id }}
+    - id: azure-login
+      uses: azure/login@v1
+      with:
+        client-id: ${{ inputs.azure-client-id }}
+        tenant-id: ${{ inputs.azure-tenant-id }}
+        subscription-id: ${{ inputs.azure-subscription-id }}
 
     - id: run-purge-cmd
       shell: bash
@@ -72,7 +72,5 @@ runs:
         if [ ${{ inputs.dry-run }} = true ]; then
           PURGE_CMD="$PURGE_CMD --dry-run"
         fi
-        
-        echo $PURGE_CMD
 
-#        az acr run --cmd "$PURGE_CMD" --registry ${{ inputs.registry }} /dev/null
+        az acr run --cmd "$PURGE_CMD" --registry ${{ inputs.registry }} /dev/null

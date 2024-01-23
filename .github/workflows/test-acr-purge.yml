@@ -29,7 +29,7 @@ jobs:
           repository-regex: "samples/nginx"
           tag-regex: "version.*"
           duration-to-keep: "1d"
-          images-to-keep-count: "2"
+#          images-to-keep-count: "2"
           delete-untagged: true
           dry-run: true
 
