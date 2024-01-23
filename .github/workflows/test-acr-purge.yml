@@ -4,6 +4,10 @@ name: TEST ACR PURGE
 on:
   push
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   acr-purge-test:
     runs-on: ubuntu-latest
@@ -28,11 +32,14 @@ jobs:
           subscription-id: "39fb1aa5-7523-407e-bd5c-beeba374ffcf"
           enable-AzPSSession: true
 
-      - name: Purge containers
-        uses: ./.github/actions/acr-purge
-        with:
-          registry: "testArtem1"
-          repository-regex: "samples/nginx"
-          tag-regex: "version.*"
-          images-to-keep-count: "2"
+      - name: Check Login
+        run: az group list
+
+#      - name: Purge containers
+#        uses: ./.github/actions/acr-purge
+#        with:
+#          registry: "testArtem1"
+#          repository-regex: "samples/nginx"
+#          tag-regex: "version.*"
+#          images-to-keep-count: "2"
 
