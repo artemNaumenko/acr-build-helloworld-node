@@ -15,14 +15,14 @@ inputs:
     required: true
     type: string
 
-run:
+runs:
   using: composite
   steps:
     steps:
       - id: run-purge-cmd
         run: |
-          PURGE_CMD="acr purge --filter '${{ github.event.inputs.repository-regex }}:${{ github.event.inputs.tag-regex }}' --untagged \
-                    --keep ${{ github.event.inputs.images-to-keep-count  }} --dry-run"
+          PURGE_CMD="acr purge --filter '${{ inputs.repository-regex }}:${{ inputs.tag-regex }}' --untagged \
+                    --keep ${{ inputs.images-to-keep-count  }} --dry-run"
           
           echo $PURGE_CMD
-          az acr run --cmd "$PURGE_CMD" --registry ${{ github.event.inputs.registry }} /dev/null
+          az acr run --cmd "$PURGE_CMD" --registry ${{ inputs.registry }} /dev/null
