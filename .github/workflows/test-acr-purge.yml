@@ -16,7 +16,7 @@ jobs:
           echo "Hello world!"
 
       - name: Purge containers
-        uses: ./../actions/acr-purge
+        uses: ./.github/actions/acr-purge
         with:
           registry: "testArtem1"
           repository-regex: "samples/nginx"
