@@ -33,7 +33,7 @@ inputs:
     type: string
   images-to-keep-count:
     description: 'Specifies that the latest x number of to-be-deleted tags are retained.'
-    required: true
+    required: false
     type: string
   delete-untagged:
     description: 'Specifies that manifests that do not have associated tags (untagged manifests) are deleted.'
@@ -49,18 +49,21 @@ inputs:
 runs:
   using: composite
   steps:
-    - id: azure-login
-      uses: azure/login@v1
-      with:
-        client-id: ${{ inputs.azure-client-id }}
-        tenant-id: ${{ inputs.azure-tenant-id }}
-        subscription-id: ${{ inputs.azure-subscription-id }}
+#    - id: azure-login
+#      uses: azure/login@v1
+#      with:
+#        client-id: ${{ inputs.azure-client-id }}
+#        tenant-id: ${{ inputs.azure-tenant-id }}
+#        subscription-id: ${{ inputs.azure-subscription-id }}
 
     - id: run-purge-cmd
       shell: bash
       run: |
-        PURGE_CMD="acr purge --filter '${{ inputs.repository-regex }}:${{ inputs.tag-regex }}' \
-                  --keep ${{ inputs.images-to-keep-count  }} --ago ${{ inputs.duration-to-keep }}"
+        PURGE_CMD="acr purge --filter '${{ inputs.repository-regex }}:${{ inputs.tag-regex }}' --ago ${{ inputs.duration-to-keep }}"
+        
+        if [ -n ${{ inputs.images-to-keep-count ]; then
+          PURGE_CMD="$PURGE_CMD --keep ${{ inputs.images-to-keep-count  }}"
+        fi
         
         if [ ${{ inputs.delete-untagged }} = true ]; then
           PURGE_CMD="$PURGE_CMD --untagged"
@@ -70,4 +73,6 @@ runs:
           PURGE_CMD="$PURGE_CMD --dry-run"
         fi
         
-        az acr run --cmd "$PURGE_CMD" --registry ${{ inputs.registry }} /dev/null
+        echo $PURGE_CMD
+
+#        az acr run --cmd "$PURGE_CMD" --registry ${{ inputs.registry }} /dev/null
