@@ -43,6 +43,6 @@ jobs:
           tag-regex: "version.*"
           duration-to-keep: "5h"
           images-to-keep-count: "2"
-          delete-untagged: false
+          delete-untagged: true
           dry-run: false
 
