@@ -1,0 +1,28 @@
+---
+name: ACR Purge Reusable
+
+inputs:
+  registry:
+    required: true
+    type: string
+  repository-regex:
+    required: true
+    type: string
+  tag-regex:
+    required: true
+    type: string
+  images-to-keep-count:
+    required: true
+    type: string
+
+run:
+  using: composite
+  steps:
+    steps:
+      - id: run-purge-cmd
+        run: |
+          PURGE_CMD="acr purge --filter '${{ inputs.repository-regex }}:${{ inputs.tag-regex }}' --untagged \
+                    --keep ${{ inputs.images-to-keep-count  }} --dry-run"
+          
+          echo $PURGE_CMD
+          az acr run --cmd "$PURGE_CMD" --registry ${{ inputs.registry }} /dev/null

@@ -5,10 +5,13 @@ on:
   push
 
 jobs:
-  acr-purge:
-    uses: ./.github/workflows/acr-purge.yml
-    with:
-      registry: "testArtem1"
-      repository-regex: "samples/nginx"
-      tag-regex: "version.*"
-      images-to-keep-count: "2"
+  acr-purge-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Purge containers
+        uses: .github/actions/acr-purge
+        with:
+          registry: "testArtem1"
+          repository-regex: "samples/nginx"
+          tag-regex: "version.*"
+          images-to-keep-count: "2"
