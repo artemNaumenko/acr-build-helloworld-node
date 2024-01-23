@@ -61,7 +61,7 @@ runs:
       run: |
         PURGE_CMD="acr purge --filter '${{ inputs.repository-regex }}:${{ inputs.tag-regex }}' --ago ${{ inputs.duration-to-keep }}"
         
-        if [ -n ${{ inputs.images-to-keep-count ]; then
+        if [ -n ${{ inputs.images-to-keep-count }} ]; then
           PURGE_CMD="$PURGE_CMD --keep ${{ inputs.images-to-keep-count  }}"
         fi
         
