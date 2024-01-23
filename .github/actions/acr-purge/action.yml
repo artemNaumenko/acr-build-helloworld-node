@@ -1,18 +1,18 @@
 ---
 name: ACR Purge Reusable
-description: Composite action to clean ACR
+description: 'Composite action to clean ACR'
 
 inputs:
   azure-client-id:
-    description: "Client (application) ID."
+    description: 'Client (application) ID.'
     required: true
     type: string
   azure-tenant-id:
-    description: "Tenant (directory) ID."
+    description: 'Tenant (directory) ID.'
     required: true
     type: string
   azure-subscription-id:
-    description: "Subscription ID."
+    description: 'Subscription ID.'
     required: true
     type: string
   registry:
@@ -60,17 +60,13 @@ runs:
       shell: bash
       run: |
         PURGE_CMD="acr purge --filter '${{ inputs.repository-regex }}:${{ inputs.tag-regex }}' --ago ${{ inputs.duration-to-keep }}"
-        
         if [ ${{ inputs.images-to-keep-count }} ]; then
           PURGE_CMD="$PURGE_CMD --keep ${{ inputs.images-to-keep-count  }}"
         fi
-        
         if [ ${{ inputs.delete-untagged }} = true ]; then
           PURGE_CMD="$PURGE_CMD --untagged"
         fi
-        
         if [ ${{ inputs.dry-run }} = true ]; then
           PURGE_CMD="$PURGE_CMD --dry-run"
         fi
-
         az acr run --cmd "$PURGE_CMD" --registry ${{ inputs.registry }} /dev/null
