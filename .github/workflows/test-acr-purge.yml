@@ -41,5 +41,6 @@ jobs:
           registry: "testArtem1"
           repository-regex: "samples/nginx"
           tag-regex: "version.*"
+          duration-to-keep: "5h"
           images-to-keep-count: "2"
 

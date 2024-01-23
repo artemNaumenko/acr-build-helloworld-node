@@ -12,6 +12,9 @@ inputs:
   tag-regex:
     required: true
     type: string
+  duration-to-keep:
+    required: true
+    type: string
   images-to-keep-count:
     required: true
     type: string
@@ -24,7 +27,7 @@ runs:
       shell: bash
       run: |
         PURGE_CMD="acr purge --filter '${{ inputs.repository-regex }}:${{ inputs.tag-regex }}' --untagged \
-                  --keep ${{ inputs.images-to-keep-count  }} --dry-run"
+                  --keep ${{ inputs.images-to-keep-count  }} --ago ${{ inputs.duration-to-keep }} --dry-run"
         
         echo $PURGE_CMD
         az acr run --cmd "$PURGE_CMD" --registry ${{ inputs.registry }} /dev/null
