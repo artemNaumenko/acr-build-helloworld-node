@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Purge containers
-        uses: .github/actions/acr-purge
+        uses: .github/actions/acr-purge.yml
         with:
           registry: "testArtem1"
           repository-regex: "samples/nginx"
