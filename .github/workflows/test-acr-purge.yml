@@ -35,11 +35,11 @@ jobs:
       - name: Check Login
         run: az group list
 
-#      - name: Purge containers
-#        uses: ./.github/actions/acr-purge
-#        with:
-#          registry: "testArtem1"
-#          repository-regex: "samples/nginx"
-#          tag-regex: "version.*"
-#          images-to-keep-count: "2"
+      - name: Purge containers
+        uses: ./.github/actions/acr-purge
+        with:
+          registry: "testArtem1"
+          repository-regex: "samples/nginx"
+          tag-regex: "version.*"
+          images-to-keep-count: "2"
 
