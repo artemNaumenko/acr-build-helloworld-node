@@ -8,6 +8,13 @@ jobs:
   acr-purge-test:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Say hello
+        run: | 
+          echo "Hello world!"
+
       - name: Purge containers
         uses: .github/actions/acr-purge.yml
         with:
