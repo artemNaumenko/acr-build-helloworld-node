@@ -44,4 +44,5 @@ jobs:
           duration-to-keep: "5h"
           images-to-keep-count: "2"
           delete-untagged: false
+          dry-run: false
 
