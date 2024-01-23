@@ -33,9 +33,6 @@ jobs:
           tenant-id: ${{ env.azure-tenant-id }}
           subscription-id: ${{ env.azure-subscription-id }}
 
-      - name: Check Login
-        run: az group list
-
       - name: Purge containers
         uses: ./.github/actions/acr-purge
         with:
