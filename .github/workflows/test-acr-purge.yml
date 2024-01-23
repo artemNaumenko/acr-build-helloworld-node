@@ -11,9 +11,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Say hello
-        run: | 
-          echo "Hello world!"
+      - name: Log into azure container registry
+        uses: docker/login-action@v2
+        with:
+          registry: "testArtem1.azurecr.io"
+          username: "testArtem1"
+          password: "nwoQLGxhx7mggXPXzY+bYRRXomfV3veqIP0O3WfKNb+ACRCH+X/H"
 
       - name: Purge containers
         uses: ./.github/actions/acr-purge
