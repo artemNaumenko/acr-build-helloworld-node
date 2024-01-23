@@ -1,5 +1,6 @@
 ---
 name: ACR Purge Reusable
+description: Composite action to clean ACR
 
 inputs:
   registry:
@@ -15,14 +16,15 @@ inputs:
     required: true
     type: string
 
+
 runs:
   using: composite
   steps:
-    steps:
-      - id: run-purge-cmd
-        run: |
-          PURGE_CMD="acr purge --filter '${{ inputs.repository-regex }}:${{ inputs.tag-regex }}' --untagged \
-                    --keep ${{ inputs.images-to-keep-count  }} --dry-run"
-          
-          echo $PURGE_CMD
-          az acr run --cmd "$PURGE_CMD" --registry ${{ inputs.registry }} /dev/null
+    - id: run-purge-cmd
+      shell: bash
+      run: |
+        PURGE_CMD="acr purge --filter '${{ inputs.repository-regex }}:${{ inputs.tag-regex }}' --untagged \
+                  --keep ${{ inputs.images-to-keep-count  }} --dry-run"
+        
+        echo $PURGE_CMD
+        az acr run --cmd "$PURGE_CMD" --registry ${{ inputs.registry }} /dev/null
